@@ -1,1 +1,57 @@
+@startuml
+left to right direction
 
+actor "Magazynier" as M
+actor "Kierownik magazynu" as K
+actor "Administrator" as A
+
+rectangle "System zarządzania magazynem Elektro-Bud" {
+
+    usecase "Logowanie" as UC01
+
+    usecase "Wyszukaj produkt" as UC02
+    usecase "Sprawdź lokalizację" as UC03
+    usecase "Sprawdź stan\nmagazynowy" as UC04
+
+    usecase "Przyjmij towar" as UC05
+    usecase "Wydaj towar" as UC06
+    usecase "Sprawdź dostępny\nstan" as UC07
+    usecase "Zarejestruj operację" as UC08
+    usecase "Odrzuć wydanie\nz powodu braku towaru" as UC09
+
+    usecase "Zarządzaj produktami" as UC10
+    usecase "Przeglądaj stany" as UC11
+    usecase "Przeglądaj historię\noperacji" as UC12
+    usecase "Generuj raport" as UC13
+
+    usecase "Zarządzaj\nużytkownikami" as UC14
+    usecase "Zarządzaj\nuprawnieniami" as UC15
+    usecase "Obsłuż zapomniane\nhasło" as UC16
+}
+
+M --> UC01
+M --> UC02
+M --> UC03
+M --> UC04
+M --> UC05
+M --> UC06
+
+K --> UC01
+K --> UC10
+K --> UC11
+K --> UC12
+K --> UC13
+
+A --> UC01
+A --> UC14
+A --> UC15
+A --> UC16
+
+UC05 ..> UC08 : <<include>>
+
+UC06 ..> UC07 : <<include>>
+UC06 ..> UC08 : <<include>>
+
+UC09 ..> UC06 : <<extend>>
+
+@enduml
